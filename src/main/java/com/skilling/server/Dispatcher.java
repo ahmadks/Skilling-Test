@@ -35,7 +35,7 @@ public class Dispatcher implements Runnable {
 					// Check if there a near tube station
 					nextOrder.setIsNearStation(ProcessorService.calculateNearStation(nextOrder,stations));
 					
-					// Send nextPoint to Drones
+					// Send nextPoint to Drones with more time should be better to write in the queue in different thread to not make it blocking
 					if (nextOrder.getDroneId() == Configuration.DRONE_1) {
 						d1q.put(nextOrder);
 					} else if (nextOrder.getDroneId() == Configuration.DRONE_2) {
