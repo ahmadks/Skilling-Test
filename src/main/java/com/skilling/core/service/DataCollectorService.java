@@ -42,8 +42,7 @@ public class DataCollectorService {
 		}
 		return point;
 	}
-	
-	
+
 	public static List<Station> getStations(String src) {
 
 		String line = "";
@@ -60,7 +59,7 @@ public class DataCollectorService {
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace(); //invalid input...
+			e.printStackTrace(); // invalid input...
 		}
 		return res;
 	}

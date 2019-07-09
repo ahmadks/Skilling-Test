@@ -23,19 +23,19 @@ public class Dispatcher implements Runnable {
 	public void run() {
 		try {
 
-	
 			boolean inTime = inTime(LocalTime.now());
-			@SuppressWarnings("unchecked")  
+			@SuppressWarnings("unchecked")
 			List<Point> points = (List<Point>) cache.get("points");
 			@SuppressWarnings("unchecked")
 			List<Station> stations = (List<Station>) cache.get("stations");
-			
+
 			for (Point nextOrder : points) {
 				if (nextOrder != null) {
 					// Check if there a near tube station
-					nextOrder.setIsNearStation(ProcessorService.calculateNearStation(nextOrder,stations));
-					
-					// Send nextPoint to Drones with more time should be better to write in the queue in different thread to not make it blocking
+					nextOrder.setIsNearStation(ProcessorService.calculateNearStation(nextOrder, stations));
+
+					// Send nextPoint to Drones with more time should be better to write in the
+					// queue in different thread to not make it blocking
 					if (nextOrder.getDroneId() == Configuration.DRONE_1) {
 						d1q.put(nextOrder);
 					} else if (nextOrder.getDroneId() == Configuration.DRONE_2) {
@@ -51,7 +51,6 @@ public class Dispatcher implements Runnable {
 			// if all data has been processed, then finish the application
 			cache.replace("status", "SHUTDOWN");// Send Shut down signal
 
-	
 		} catch (InterruptedException ex) {
 			ex.printStackTrace();
 		}
@@ -63,5 +62,4 @@ public class Dispatcher implements Runnable {
 		return true;
 	}
 
-	
 }

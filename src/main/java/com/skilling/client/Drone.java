@@ -46,11 +46,11 @@ public class Drone implements Runnable {
 		// The drone will do nothing while moving
 		try {
 			double distance = DistanceCalculator.distance(currentPoint, nextPoint);
-			//System.out.println("Drone " + currentPoint.getDroneId() + " is moving " + distance + " meters to the next location" );
-			Thread.sleep(
-					(long) (1000 * (distance / Configuration.DRONE_SPEED))); // simulate
-																															// time
-																															// passing
+			// System.out.println("Drone " + currentPoint.getDroneId() + " is moving " +
+			// distance + " meters to the next location" );
+			Thread.sleep((long) (1000 * (distance / Configuration.DRONE_SPEED))); // simulate
+																					// time
+																					// passing
 
 			currentPoint = nextPoint;
 

@@ -4,13 +4,13 @@ import com.skilling.core.domain.Location;
 
 public class DistanceCalculator {
 
-	//calculate the distance in meters
+	// calculate the distance in meters
 	public static double distance(Location l1, Location l2) {
 		double lat1 = l1.getLatitude();
 		double lon1 = l1.getLongitude();
 		double lat2 = l2.getLatitude();
 		double lon2 = l2.getLongitude();
-		
+
 		if ((lat1 == lat2) && (lon1 == lon2)) {
 			return 0;
 		} else {

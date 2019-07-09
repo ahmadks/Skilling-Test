@@ -21,9 +21,9 @@ public enum Conditions {
 		this.label = label;
 		this.id = id;
 	}
-	
-	 public static Conditions valueById(Integer id) {
-	        return BY_ID.get(id);
-	    }
+
+	public static Conditions valueById(Integer id) {
+		return BY_ID.get(id);
+	}
 
 }

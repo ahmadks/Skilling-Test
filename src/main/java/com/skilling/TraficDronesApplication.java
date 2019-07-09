@@ -20,14 +20,13 @@ public class TraficDronesApplication {
 		BlockingQueue<Point> d2q = new LinkedBlockingQueue<>(Configuration.DRONE_MAX_MEM);
 
 		ConcurrentHashMap<String, Object> cache = new ConcurrentHashMap<>();
-		
+
 		cache.put("status", "START");
 		List<Point> points = DataCollectorService.getPoints("src/main/resources/data.csv");
 		List<Station> stations = DataCollectorService.getStations("src/main/resources/stations.csv");
-		
+
 		cache.put("points", points);
 		cache.put("stations", stations);
-
 
 		new Thread(new Dispatcher(d1q, d2q, cache)).start();
 
