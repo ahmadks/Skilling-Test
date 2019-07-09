@@ -3,12 +3,12 @@ package com.skilling.client;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
 
+import com.skilling.core.Configuration;
 import com.skilling.core.domain.Point;
 import com.skilling.core.service.ProcessorService;
 import com.skilling.core.util.DistanceCalculator;
 
 public class Drone implements Runnable {
-	private static final Integer SPEED = 12; // in meters/sec
 	protected BlockingQueue<Point> queue;
 	protected ConcurrentHashMap<String, Object> cache;
 	protected Point currentPoint = null;
@@ -23,16 +23,17 @@ public class Drone implements Runnable {
 			while (running()) {
 				Point nextPoint = queue.take();
 				moveTo(nextPoint);
-				if (this.currentPoint.IsNearStation()) ProcessorService.logTraficInfo(currentPoint); 
+				if (this.currentPoint.IsNearStation())
+					ProcessorService.logTraficInfo(currentPoint);
 			}
 		} catch (InterruptedException ex) {
-			System.out.println("CONSUMER INTERRUPTED");
+			ex.printStackTrace();
 		}
 	}
 
 	private boolean running() {
-		return !((String)cache.get("status")).equalsIgnoreCase("SHUTDOWN");
-		 
+		return !((String) cache.get("status")).equalsIgnoreCase("SHUTDOWN");
+
 	}
 
 	void moveTo(Point nextPoint) {
@@ -42,11 +43,15 @@ public class Drone implements Runnable {
 			return;
 		}
 
+		// The drone will do nothing while moving
 		try {
-			Thread.sleep((long) (1000 * (DistanceCalculator.distance(currentPoint,nextPoint) * SPEED))); // simulate time passing
-			
+			Thread.sleep(
+					(long) (1000 * (DistanceCalculator.distance(currentPoint, nextPoint) / Configuration.DRONE_SPEED))); // simulate
+																															// time
+																															// passing
+
 			currentPoint = nextPoint;
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

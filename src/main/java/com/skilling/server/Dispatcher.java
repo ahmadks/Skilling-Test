@@ -25,13 +25,17 @@ public class Dispatcher implements Runnable {
 
 	
 			boolean inTime = inTime(LocalTime.now());
-			@SuppressWarnings("unchecked")  // if have more time will implemented with generic
+			@SuppressWarnings("unchecked")  
 			List<Point> points = (List<Point>) cache.get("points");
 			@SuppressWarnings("unchecked")
 			List<Station> stations = (List<Station>) cache.get("stations");
+			
 			for (Point nextOrder : points) {
 				if (nextOrder != null) {
+					// Check if there a near tube station
 					nextOrder.setIsNearStation(ProcessorService.calculateNearStation(nextOrder,stations));
+					
+					// Send nextPoint to Drones
 					if (nextOrder.getDroneId() == Configuration.DRONE_1) {
 						d1q.put(nextOrder);
 					} else if (nextOrder.getDroneId() == Configuration.DRONE_2) {
@@ -39,7 +43,7 @@ public class Dispatcher implements Runnable {
 					}
 				}
 				inTime = inTime(LocalTime.now());
-				if (!inTime) { // at 8:10 Shut down the drown.. but the dispatcher will still active
+				if (!inTime) { // at 8:10 Shut down the drown??.. but the dispatcher will still active
 					cache.replace("status", "SHUTDOWN");// Send Shut down signal
 				}
 

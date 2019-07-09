@@ -60,7 +60,7 @@ public class DataCollectorService {
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			e.printStackTrace(); //invalid input...
 		}
 		return res;
 	}

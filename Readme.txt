@@ -6,5 +6,5 @@ Assumption taken to complete the test
 . The initial position of the drone will be the first Entry.
 . All data will be validated on the beginning.(assume that the data is valid and ordered)
 . All output data will be through standard console
-. To run the application set the speed to 0 in Configuration class
+. To run the application set the speed to a very high value 999999 in Configuration class
 . Main App is in com.skilling.TraficDronesApplication.java
